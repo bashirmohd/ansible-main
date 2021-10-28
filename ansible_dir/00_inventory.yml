@@ -2,11 +2,20 @@ all:
   vars:
     ansible_python_interpreter: /usr/bin/python3
   children:
-    monitor:
+    control:
       hosts:
-        172.17.0.2
+        10.52.0.81
     others:
+     ubuntu:
       hosts:
-        172.17.0.5:
-        172.17.0.4:
-        172.17.0.3:
+        10.52.3.3:
+        10.52.0.180:
+        10.52.1.81:
+        10.52.3.193:
+        #10.52.2.82:
+        #10.52.3.13:
+        10.52.0.191:
+     centos:
+      hosts:
+        10.52.3.13:
+        10.52.2.82:
