@@ -1,0 +1,62 @@
+- name: Install Netgraf all-in-one
+  hosts: all
+  user: cc
+  become: yes
+  vars:
+    ansible_python_interpreter: "/usr/bin/python3"
+
+  tasks:
+
+  - name: Install basic tools on Ubuntu
+    apt:
+       name: git,vim,htop
+       state: present
+    when: ansible_distribution == 'Ubuntu'
+
+  - name: Install basic tools on CentOS
+    yum:
+       name: git,vim,htop
+       state: present
+    when: ansible_distribution == 'CentOS'
+
+
+  - name: Installing Nginx
+    apt:
+       name: nginx
+       update_cache: yes
+       state: latest
+    when: ansible_distribution == 'Ubuntu'
+
+  - name: Installing Nginx CentOS
+    yum:
+       name: epel-release
+       update_cache: yes
+       state: latest
+    when: ansible_distribution == 'CentOS'
+                                                                                                                                            1,1           Top
+
+- name: install monitoring stack
+  hosts: control
+  become: yes
+  roles:
+   - prometheus
+   - grafana
+
+
+- name: install node-exporter
+  hosts: all
+  become: yes
+  roles:
+   - node-exporter
+
+- name: install netdata
+  hosts: all
+  become: yes
+  roles:
+   - netdata
+
+- name: install ntopng
+  hosts: all
+  become: yes
+  roles:
+   - ntopng
