@@ -3,29 +3,30 @@ Role Name
 
 A brief description of the role goes here.
 
-Requirements
-------------
+## Prerequisites
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+-   A Netdata Cloud account. [Sign in and create one](https://app.netdata.cloud) if you don't have one already.
 
-Role Variables
---------------
+## Quickstart
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Here's how to run this playbook as quickly as possible.
 
-Dependencies
-------------
+First, and populate the `hosts` file with the IP addresses for your node(s). If you want, you can use the `hostname`
+variable to set the node's name, which appears both on the local Agent dashboard and Netdata Cloud.
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+```
+203.0.113.0   hostname=node-01
+203.0.113.1   hostname=node-02 
+```
 
-Example Playbook
-----------------
+Next, edit the `vars/main.yml` file to change the `claim_token` and `claim_rooms` variables. To find your `claim_token`
+and `claim_room`, go to Netdata Cloud, then click on your Space's name in the top navigation, then click on `Manage your
+Space`. Click on the `Nodes` tab in the panel that appears, which displays a script with `token` and `room` strings.
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+Finally, import the role in your main playbook to setup netdata.
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+When the playbook finishes, you'll see your nodes appear in Netdata Cloud!
+
 
 License
 -------
