@@ -1,0 +1,69 @@
+- name: Install Netgraf all-in-one
+  hosts: all
+  user: root
+  become: yes
+#  vars:
+#    ansible_python_interpreter: "/usr/bin/python3"
+
+  tasks:
+  #- name: Update Ubuntu
+  #  apt:
+  #     upgrade: "yes"
+  #     update_cache: yes
+  #  when: ansible_distribution == 'Ubuntu'
+
+  - name: Install basic tools on Ubuntu
+    apt:   
+       name: git,vim,htop
+       state: present
+    when: ansible_distribution == 'Ubuntu'
+
+  - name: Update CentOS
+    yum:
+       name: '*'
+       state: latest
+       update_cache: yes
+    when: ansible_distribution == 'CentOS'
+
+  - name: Install basic tools on CentOS
+    yum:     
+       name: git,vim
+       state: present
+    when: ansible_distribution == 'CentOS'
+
+
+  - name: Installing Nginx
+    apt:
+       name: nginx
+       update_cache: yes
+       state: latest
+    when: ansible_distribution == 'Ubuntu'
+
+  - name: Installing Nginx CentOS
+    yum:
+       name: epel-release
+       update_cache: yes
+       state: latest
+    when: ansible_distribution == 'CentOS'
+
+- name: Install promscale
+  hosts: control
+  become: yes
+  roles:
+    - postgresql
+    - timescaledb_role
+    - promscale_role
+
+- name: install prometheus and grafana
+  hosts: control
+  become: yes
+  roles:
+   - prometheus
+   - grafana
+
+- name: install node-exporter and netdata
+  hosts: all
+  become: yes
+  roles:
+   - node-exporter
+   - netdata 
