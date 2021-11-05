@@ -100,7 +100,7 @@ passed to `rcctl set ntopng`.
   roles:
     - role: trombik.apt_repo
       when:
-        - ansible_os_family == 'Debian'
+        - ansible_os_family == 'Ubuntu'
     - role: trombik.redhat_repo
       when:
         - ansible_os_family == 'RedHat'
@@ -116,7 +116,7 @@ passed to `rcctl set ntopng`.
       shell: "echo; systemctl list-units --type service"
       changed_when: false
       when:
-        - ansible_os_family == 'RedHat' or ansible_os_family == 'Debian'
+        - ansible_os_family == 'RedHat' or ansible_os_family == 'Ubuntu'
     - name: list all services (FreeBSD service)
       # workaround ansible-lint: [303] service used in place of service module
       shell: "echo; service -l"
@@ -138,7 +138,7 @@ passed to `rcctl set ntopng`.
     os_ntopng_extra_packages:
       FreeBSD: []
       OpenBSD: []
-      Debian:
+      Ubuntu:
         - pfring
         - ntopng-data
       RedHat:

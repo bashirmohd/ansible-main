@@ -18,6 +18,13 @@
   notify:
     - Restart ntopng_service
 
+- name: "Create {{ ntopng_config_file }}"
+  template:
+    src: ntopng.conf.j2
+    dest: "/etc/ntopng.conf"
+  notify:
+    - Restart ntopng_service
+
 - name: "Add ntopng_user to ntopng_extra_groups"
   user:
     name: "{{ ntopng_user }}"

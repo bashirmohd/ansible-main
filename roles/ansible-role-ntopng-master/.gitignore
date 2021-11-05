@@ -1,7 +1,0 @@
-/__pycache__/
-/.kitchen/
-.kitchen.local.yml
-*.swp
-.bundle/
-vendor/
-*.pyc

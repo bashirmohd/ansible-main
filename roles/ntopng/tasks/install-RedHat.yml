@@ -4,7 +4,29 @@
   yum:
     name: "{{ ntopng_extra_packages }}"
     state: present
+# test
+- name: Add ntop stable repo
+  yum_repository:
+    name: ntop
+    file: ntop
+    description: ntop Stable Repository
+    baseurl: http://packages.ntop.org/centos-stable/$releasever/$basearch/
+    gpgcheck: yes
+    enabled: yes
+    gpgkey: http://packages.ntop.org/centos-stable/RPM-GPG-KEY-deri
+    state: present
 
+- name: Add ntop-noarch stable repo
+  yum_repository:
+    name: ntop-noarch
+    file: ntop-noarch
+    description: ntop-noarch Stable Repository
+    baseurl: http://packages.ntop.org/centos-stable/$releasever/noarch/
+    gpgcheck: yes
+    enabled: yes
+    gpgkey: http://packages.ntop.org/centos-stable/RPM-GPG-KEY-deri
+    state: present
+#test
 - name: Install ntopng_package
   yum:
     name: "{{ ntopng_package }}"

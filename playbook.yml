@@ -1,16 +1,16 @@
 - name: Install Netgraf all-in-one
   hosts: all
-  user: cc
+  user: root
   become: yes
 #  vars:
 #    ansible_python_interpreter: "/usr/bin/python3"
 
   tasks:
-  #- name: Update Ubuntu
-  #  apt:
-  #     upgrade: "yes"
-  #     update_cache: yes
-  #  when: ansible_distribution == 'Ubuntu'
+  - name: Update Ubuntu
+    apt:
+       upgrade: "yes"
+       update_cache: yes
+    when: ansible_distribution == 'Ubuntu'
 
   - name: Install basic tools on Ubuntu
     apt:   
@@ -30,7 +30,6 @@
        name: git,vim
        state: present
     when: ansible_distribution == 'CentOS'
-
 
   - name: Installing Nginx
     apt:
@@ -67,3 +66,11 @@
   roles:
    - node-exporter
    - netdata 
+
+- name: install ntopng and it's dependencies
+  hosts: all
+  become: yes
+  roles:
+   - trombik.apt_repo
+   - redis
+   - ntopng
