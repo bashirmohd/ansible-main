@@ -68,7 +68,7 @@
 
 - name: install node exporter dashboard
   get_url:
-    url: https://github.com/bashirmohd/grafana-dashboard/blob/main/prometheus/node-exporter-full.json
+    url: https://raw.githubusercontent.com/bashirmohd/grafana-dashboard/main/prometheus/node-exporter-full.json
     dest: /var/lib/grafana/node-exporter.json
     mode: '0755'
 
