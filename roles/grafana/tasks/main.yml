@@ -34,7 +34,7 @@
 
 - name: wait for service up
   uri:
-    url: "http://127.0.0.1:3000"
+    url: "http://159.65.60.19:3000"
     status_code: 200
   register: __result
   until: __result.status == 200
@@ -58,17 +58,17 @@
 - name: add prometheus datasource
   grafana_datasource:
     name: "prometheus-local"
-    grafana_url: "http://127.0.0.1:3000"
+    grafana_url: "http://159.65.60.19:3000"
     grafana_user: "{{ grafana_admin_user }}"
     grafana_password: "{{ grafana_admin_password }}"
     org_id: "1"
     ds_type: "prometheus"
-    ds_url: "http://127.0.0.1:9090"
+    ds_url: "http://159.65.60.19:9090"
   changed_when: false
 
 - name: install node exporter dashboard
   get_url:
-    url:  https://raw.githubusercontent.com/finn-no/grafana-dashboards/master/node-exporter-server-metrics/node-exporter-server-metrics.json
+    url:  https://raw.githubusercontent.com/bashirmohd/grafana-dashboard/main/node-exporter-server-metrics/node-exporter-server-metrics.json
     dest: /var/lib/grafana/node-exporter.json
     mode: '0755'
 
