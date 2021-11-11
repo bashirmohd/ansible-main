@@ -1,6 +1,6 @@
 - name: Install Netgraf all-in-one
   hosts: all
-  user: root
+  user: cc
   become: yes
 #  vars:
 #    ansible_python_interpreter: "/usr/bin/python3"
