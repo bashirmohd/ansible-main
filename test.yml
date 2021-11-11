@@ -2,11 +2,11 @@
   hosts: control
   user: root
   become: yes
+  tasks:
 
-- name: install ntopng and it's dependencies
-  hosts: centos
+- name: install prometheus and grafana
+  hosts: all
   become: yes
   roles:
-   - trombik.apt_repo
-   - geerlingguy.redis
-   - ntopng
+   - pre-flight
+

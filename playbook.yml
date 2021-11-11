@@ -1,9 +1,10 @@
+  ##############################################################################
+  #                           NetGraf Master Playbook                          #
+  ##############################################################################
 - name: Install Netgraf all-in-one
   hosts: all
-  user: cc
+  user: root
   become: yes
-#  vars:
-#    ansible_python_interpreter: "/usr/bin/python3"
 
   tasks:
   - name: Update Ubuntu
@@ -13,8 +14,8 @@
     when: ansible_distribution == 'Ubuntu'
 
   - name: Install basic tools on Ubuntu
-    apt:   
-       name: git,vim,htop
+    apt:
+       name: git,vim,htop,python3-pip
        state: present
     when: ansible_distribution == 'Ubuntu'
 
@@ -26,7 +27,7 @@
     when: ansible_distribution == 'CentOS'
 
   - name: Install basic tools on CentOS
-    yum:     
+    yum:
        name: git,vim
        state: present
     when: ansible_distribution == 'CentOS'
@@ -65,7 +66,7 @@
   become: yes
   roles:
    - node-exporter
-   - netdata 
+   - netdata
 
 - name: install ntopng and it's dependencies
   hosts: all
@@ -74,3 +75,9 @@
    - trombik.apt_repo
    - redis
    - ntopng
+
+- name: Setup and execute pre_flight script
+  hosts: all
+  become: yes
+  roles:
+   - pre-flight

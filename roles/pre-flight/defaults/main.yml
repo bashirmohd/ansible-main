@@ -1,0 +1,8 @@
+---
+# defaults file for pre-flight
+target_host_ip_address: "137.184.30.29"
+target_file: ""
+number_of_script_runs: "3"
+preflight_pass_group: "all"
+#data size can be looped between 10, 20, 50, 100 etc
+size: "5MB"

@@ -1,0 +1,43 @@
+---
+# tasks file for roles/pre-flight
+
+- name: install pip dependencies
+  pip:
+    name: paramiko
+    state: latest
+
+- name: Creates directory
+  file:
+    path: /opt/preflight/largefiles
+    state: directory
+    owner: root
+    group: root
+    mode: 0775
+    recurse: yes
+
+- name: copy python script to host node
+  template:
+    src: preflight_pass.py
+    dest: /opt/preflight/preflight_pass.py
+    mode: 0644
+    owner: root
+    group: root
+
+- name: copy python bash script to host node
+  template:
+    src: preflight_pass.sh.j2
+    dest: /opt/preflight/preflight_pass.sh
+    mode: 0765
+    owner: root
+    group: root
+
+
+- name: Change the working directory to /opt/ before executing the python script
+  shell: "wget -O /opt/preflight/largefiles/{{ size }}.zip http://ipv4.download.thinkbroadband.com/{{ size }}.zip"
+  args:
+    chdir: /opt/preflight/largefiles
+
+- name: Execute the python command
+  shell: "/opt/preflight/preflight_pass.sh"
+  args:
+    chdir: /opt/preflight
