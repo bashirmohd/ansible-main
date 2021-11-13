@@ -1,18 +1,10 @@
 ---
 # tasks file for roles/pre-flight
-
-- name: copy python setup script
-  template:
-    src: script.sh 
-    dest: /opt
-    mode: 0765
-    owner: root
-    group: root 
-
-- name: install python3
-  raw: 'cat < /opt/script.sh'
-  args:
-    executable: /bin/bash
+- name: Install basic tools on Ubuntu
+  apt:   
+     name: git,vim,python3,python3-pip
+     state: present
+  when: ansible_distribution == 'Ubuntu'
 
 - name: install pip dependencies
   pip:
